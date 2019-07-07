@@ -13,20 +13,13 @@ public class FollowersService {
 	private static final Logger LOGGER = LogManager.getLogger(FollowersService.class.getName());
 	
 	@Autowired
-	private TwitterUserGraph followersTraversal;
+	private TwitterUserGraph twitterUserGraph;
 	
 	public void getFollowers() {
 	
 		LOGGER.info("Start to obtain followers");
 
-		// Cosas útiles:
-		// http://twitter4j.org/javadoc/twitter4j/TwitterBase.html
-		// --> addRateLimitStatusListener
-		// http://twitter4j.org/javadoc/twitter4j/RateLimitStatusListener.html
-		// --> RateLimitStatusListener
-		// Estos métodos me permitirían controlar cuando llego al rate limit.
-		
-		followersTraversal.traverse("packtfreebook");
+		twitterUserGraph.traverse("packtfreebook");
 
 		LOGGER.info("No more followers to obtain");
 	}

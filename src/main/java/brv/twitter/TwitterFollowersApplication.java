@@ -3,21 +3,19 @@ package brv.twitter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
-import brv.twitter.graphs.BfsTwitterUserGraph;
 import brv.twitter.graphs.TwitterUserGraph;
+import brv.twitter.graphs.TwitterUserGraphFactory;
 import brv.twitter.services.FollowersService;
-import twitter4j.RateLimitStatusListener;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 
 @SpringBootApplication
-@EnableScheduling
 public class TwitterFollowersApplication implements CommandLineRunner {
 
 
@@ -32,20 +30,16 @@ public class TwitterFollowersApplication implements CommandLineRunner {
 	}
 
 	@Bean 
-	public Twitter getTwitter(RateLimitStatusListener listener) {
-		if(listener == null) {
-			LOGGER.warn("No RateLimitStatusListener has been appended.");
-		}
-		
-		Twitter twitter = TwitterFactory.getSingleton();
-		twitter.addRateLimitStatusListener(listener);
-		
-		return twitter;
+	public Twitter getTwitter() {
+
+		return TwitterFactory.getSingleton();
 	}
 	
 	@Bean 
-	public TwitterUserGraph getTwitterUserGraph() {
-		return new BfsTwitterUserGraph();
+	public TwitterUserGraph getTwitterUserGraph(@Value("${app.traverseStrategy:BFS}") TwitterUserGraphFactory factory) {
+		
+		LOGGER.info("Traversing strategy set to: "+ factory.name());
+		return factory.getInstance();
 	}
 	
 	@Override

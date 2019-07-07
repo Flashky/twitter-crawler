@@ -1,0 +1,8 @@
+# General app configuration
+app:
+  traverseStrategy: BFS # Valid values: BFS | DFS
+  twitter:
+    accessSecret: ${twitter.accessSecret}
+    accessToken: ${twitter.accessToken}
+    consumerKey:  ${twitter.consumerKey}
+    consumerSecret: ${twitter.consumerSecret}
