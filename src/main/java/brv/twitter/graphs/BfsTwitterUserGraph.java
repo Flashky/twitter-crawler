@@ -32,8 +32,6 @@ public class BfsTwitterUserGraph implements TwitterUserGraph {
 	public void traverse(String screenName) {
 
 		try {
-			//Set<String> visitedFollowers = new HashSet<>();
-			//Queue<User> users = new LinkedList<>();
 			
 			visitedFollowers.add(screenName);
 			users.add(twitter.showUser(screenName));
@@ -42,9 +40,7 @@ public class BfsTwitterUserGraph implements TwitterUserGraph {
 		} catch (TwitterException e) {
 			
 			LOGGER.error("An error has occured: "+ e.getErrorMessage());
-			LOGGER.error("HTTP Status Code: "+e.getStatusCode());
-			LOGGER.error("Exception code: "+e.getExceptionCode());
-			
+			LOGGER.error("HTTP Status Code: "+e.getStatusCode());		
 		}
 
 		
