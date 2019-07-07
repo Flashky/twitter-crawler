@@ -27,15 +27,18 @@ public class DfsTwitterUserGraph implements TwitterUserGraph {
 		
 	}
 
-	private void traverse(String screenName, Set<String> visitedFollowers, long cursor) {
+	private void traverse(String screenName, Set<String> visitedFollowers, long currentCursor) {
 		
+		
+		long cursor = currentCursor;
 		try {
 			
 			visitedFollowers.add(screenName);
 		
 			// Obtain followers for current user iteration
 			PagableResponseList<User> followerPage;
-		
+			
+			
 			do {
 				
 					followerPage = twitter.getFollowersList(screenName, cursor);

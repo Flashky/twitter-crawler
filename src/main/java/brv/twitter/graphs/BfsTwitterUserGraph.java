@@ -72,16 +72,24 @@ public class BfsTwitterUserGraph implements TwitterUserGraph {
 	 * @param cursor
 	 * @throws TwitterException
 	 */
-	private void traverse(User currentUser, long cursor) throws TwitterException {
+	private void traverse(User currentUser, long currentCursor) throws TwitterException {
+		
+		long cursor = currentCursor;
 		
 		try {
+			
 			if(!currentUser.isProtected()) {
+				
 				// Obtain followers for current user iteration
 				PagableResponseList<User> followerPage;
 				
+				
 				do {
 					
-					followerPage = twitter.getFollowersList(currentUser.getScreenName(), cursor, USERS_PER_PAGE);
+					followerPage = twitter.getFollowersList(currentUser.getScreenName(), 
+															cursor, 
+															USERS_PER_PAGE);
+					
 					traverse(followerPage);
 			
 				} while((cursor = followerPage.getNextCursor()) != 0);
@@ -98,7 +106,7 @@ public class BfsTwitterUserGraph implements TwitterUserGraph {
 				LOGGER.warn(e.getErrorMessage()+ ". "+ secondsUntilReset+" seconds before retry");
 				sleep(secondsUntilReset);
 				
-				traverse(currentUser, cursor);
+				traverse(currentUser, currentCursor);
 				
 			} else {
 				LOGGER.info("User failed: "+currentUser);
