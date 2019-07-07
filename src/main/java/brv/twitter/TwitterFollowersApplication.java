@@ -24,6 +24,8 @@ public class TwitterFollowersApplication implements CommandLineRunner {
 	@Autowired
 	private FollowersService service;
 
+	@Value("${app.traverse.startingUser:}")
+	private String startingUser;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(TwitterFollowersApplication.class, args);
@@ -36,7 +38,7 @@ public class TwitterFollowersApplication implements CommandLineRunner {
 	}
 	
 	@Bean 
-	public TwitterUserGraph getTwitterUserGraph(@Value("${app.traverseStrategy:BFS}") TwitterUserGraphFactory factory) {
+	public TwitterUserGraph getTwitterUserGraph(@Value("${app.traverse.strategy:BFS}") TwitterUserGraphFactory factory) {
 		
 		LOGGER.info("Traversing strategy set to: "+ factory.name());
 		return factory.getInstance();
@@ -45,7 +47,7 @@ public class TwitterFollowersApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		service.getFollowers();
+		service.getFollowers(startingUser);
 	}
 
 }

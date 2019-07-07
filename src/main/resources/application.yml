@@ -1,6 +1,8 @@
 # General app configuration
 app:
-  traverseStrategy: BFS # Valid values: BFS | DFS
+  traverse:
+    strategy: BFS # Valid values: BFS | DFS
+    #startingUser: user
   twitter:
     accessSecret: ${twitter.accessSecret}
     accessToken: ${twitter.accessToken}
