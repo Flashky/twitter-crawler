@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>brv.twitter</groupId>
-	<artifactId>followers</artifactId>
+	<artifactId>twitter-crawler</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>twitter-followers</name>
 	<description>Rest API for LAN Web Scanner</description>
