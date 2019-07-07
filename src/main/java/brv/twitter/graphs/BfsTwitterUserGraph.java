@@ -9,14 +9,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
 
 import twitter4j.PagableResponseList;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.User;
 
-@Component
 public class BfsTwitterUserGraph implements TwitterUserGraph {
 
 	private static final Logger LOGGER = LogManager.getLogger(BfsTwitterUserGraph.class.getName());

@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import brv.twitter.graphs.BfsTwitterUserGraph;
+import brv.twitter.graphs.TwitterUserGraph;
 import brv.twitter.services.FollowersService;
 import twitter4j.RateLimitStatusListener;
 import twitter4j.Twitter;
@@ -40,6 +42,12 @@ public class TwitterFollowersApplication implements CommandLineRunner {
 		
 		return twitter;
 	}
+	
+	@Bean 
+	public TwitterUserGraph getTwitterUserGraph() {
+		return new BfsTwitterUserGraph();
+	}
+	
 	@Override
 	public void run(String... args) throws Exception {
 
